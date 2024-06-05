@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: ai
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: cusllama3 # mistral llama3
+          temperature: 1
+      embedding:
+        options:
+          model: cusllama3
+    vectorstore:
+#      redis:
+#        uri: redis://localhost:6379
+#        index: myidx
+#        prefix: myp
+      milvus:
+        client:
+          host: "10.236.192.101"
+          port: 19530
+          username: "root"
+          password: "milvus"
+          connect-timeout-ms: 500000
+          keep-alive-timeout-ms: 500000
+          idle-timeout-ms: 500000
+
+        databaseName: "default"
+        collectionName: "vector_store1"
+        indexType: FLAT
+        metricType: COSINE
+        embedding-dimension: 2048
+# springdoc-openapi项目配置`
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.example.demo.controller
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+
